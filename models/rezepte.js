@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const schema = new mongoose.Schema({
     titel: String,
-    kategeorie: String,
+    kategorie: String,
     zeit: Number,
     gemacht: Boolean
 });
