@@ -4,7 +4,9 @@ const schema = new mongoose.Schema({
     titel: String,
     kategorie: String,
     zeit: Number,
-    gemacht: Boolean
+    gemacht: Boolean,
+    zutaten: String,
+    zubereitung: String
 });
 
 module.exports = mongoose.model('Rezept', schema)
