@@ -1,14 +1,15 @@
+//Block1 Grundgeruest: erstellt den Router für die vier endpunkte und laedt den Bauplan für die Rezepte
 const express = require('express');
 const router = express.Router();
 const Rezept = require('./models/rezepte');
 
-// alle Rezepte abrufen
+//Block2 holt alle Rezepte aus der Datenbank und schickt sie zurueck an das Frontend
 router.get('/rezepte', async (req, res) => {
     const alleRezepte = await Rezept.find();
     res.send(alleRezepte);
 });
 
-// ein neues Rezept anlegen
+//Block3 legt ein neues Rezept an, speichert es und schickt es mit seiner neuen _id zurueck 
 router.post('/rezepte', async (req, res) => {
     const neuesRezept = new Rezept({
         titel: req.body.titel,
@@ -22,7 +23,8 @@ router.post('/rezepte', async (req, res) => {
     res.send(neuesRezept);
 });
 
-//ein Rezept ändern
+//Block4 sucht das Rezept ueber die mitgeschickte id, aendert nur die uebergebenen Felder
+// und gibt Fehlercode 404 zurueck, wenn es kein Rezept mit dieser id gibt
 router.patch('/rezepte/:id', async (req, res) => {
     try {
         const rezept = await Rezept.findOne({ _id: req.params.id });
@@ -43,7 +45,7 @@ router.patch('/rezepte/:id', async (req, res) => {
 
 });
 
-//ein Rezept löschen
+//Block5 findet das Rezept ueber die id und loescht es
 router.delete('/rezepte/:id', async (req, res) => {
     try {
         await Rezept.deleteOne({ _id: req.params.id });
@@ -55,5 +57,5 @@ router.delete('/rezepte/:id', async (req, res) => {
     }
 
 });
-
+// gibt den fertigen Router nach aussen, damit die server.js ihn sich holen kann
 module.exports = router;
